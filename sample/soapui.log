@@ -1,0 +1,23 @@
+2012-07-03 13:40:12,328 WARN  [SoapUI] Missing folder [C:\Users\User\Desktop\SMUBank\SOAPGen\sample\.\ext] for external libraries
+2012-07-03 13:40:12,848 INFO  [DefaultSoapUICore] initialized soapui-settings from [C:\Users\User\soapui-settings.xml]
+2012-07-03 13:40:13,868 INFO  [SchemaUtils] Added default schema from file:/C:/Users/User/Desktop/SMUBank/SOAPGen/lib/soapui-4.5.0.jar!/com/eviware/soapui/resources/xsds/xop.xsd with targetNamespace http://www.w3.org/2004/08/xop/include
+2012-07-03 13:40:13,918 INFO  [SchemaUtils] Added default schema from file:/C:/Users/User/Desktop/SMUBank/SOAPGen/lib/soapui-4.5.0.jar!/com/eviware/soapui/resources/xsds/XMLSchema.xsd with targetNamespace http://www.w3.org/2001/XMLSchema
+2012-07-03 13:40:13,918 INFO  [SchemaUtils] Added default schema from file:/C:/Users/User/Desktop/SMUBank/SOAPGen/lib/soapui-4.5.0.jar!/com/eviware/soapui/resources/xsds/xml.xsd with targetNamespace http://www.w3.org/XML/1998/namespace
+2012-07-03 13:40:13,918 INFO  [SchemaUtils] Added default schema from file:/C:/Users/User/Desktop/SMUBank/SOAPGen/lib/soapui-4.5.0.jar!/com/eviware/soapui/resources/xsds/swaref.xsd with targetNamespace http://ws-i.org/profiles/basic/1.1/xsd
+2012-07-03 13:40:13,918 INFO  [SchemaUtils] Added default schema from file:/C:/Users/User/Desktop/SMUBank/SOAPGen/lib/soapui-4.5.0.jar!/com/eviware/soapui/resources/xsds/xmime200505.xsd with targetNamespace http://www.w3.org/2005/05/xmlmime
+2012-07-03 13:40:13,928 INFO  [SchemaUtils] Added default schema from file:/C:/Users/User/Desktop/SMUBank/SOAPGen/lib/soapui-4.5.0.jar!/com/eviware/soapui/resources/xsds/xmime200411.xsd with targetNamespace http://www.w3.org/2004/11/xmlmime
+2012-07-03 13:40:13,928 INFO  [SchemaUtils] Added default schema from file:/C:/Users/User/Desktop/SMUBank/SOAPGen/lib/soapui-4.5.0.jar!/com/eviware/soapui/resources/xsds/soapEnvelope.xsd with targetNamespace http://schemas.xmlsoap.org/soap/envelope/
+2012-07-03 13:40:13,928 INFO  [SchemaUtils] Added default schema from file:/C:/Users/User/Desktop/SMUBank/SOAPGen/lib/soapui-4.5.0.jar!/com/eviware/soapui/resources/xsds/soapEncoding.xsd with targetNamespace http://schemas.xmlsoap.org/soap/encoding/
+2012-07-03 13:40:13,928 INFO  [SchemaUtils] Added default schema from file:/C:/Users/User/Desktop/SMUBank/SOAPGen/lib/soapui-4.5.0.jar!/com/eviware/soapui/resources/xsds/soapEnvelope12.xsd with targetNamespace http://www.w3.org/2003/05/soap-envelope
+2012-07-03 13:40:13,928 INFO  [SchemaUtils] Added default schema from file:/C:/Users/User/Desktop/SMUBank/SOAPGen/lib/soapui-4.5.0.jar!/com/eviware/soapui/resources/xsds/soapEncoding12.xsd with targetNamespace http://www.w3.org/2003/05/soap-encoding
+2012-07-03 13:40:14,078 INFO  [SchemaUtils] Loading schema types from [file:/C:/Users/User/Desktop/SMUBank/SOAPGen/sample/ServiceMediationFramework%20v3.0.0.wsdl]
+2012-07-03 13:40:14,078 INFO  [SchemaUtils] Getting schema file:/C:/Users/User/Desktop/SMUBank/SOAPGen/sample/ServiceMediationFramework%20v3.0.0.wsdl
+2012-07-03 13:40:14,328 INFO  [WsdlImporter] Finding importer for {http://smubank.smu.edu.sg/ServiceMediation}ServiceMediationHTTPEndpointBinding
+2012-07-03 13:40:14,328 INFO  [WsdlImporter] Importing binding {http://smubank.smu.edu.sg/ServiceMediation}ServiceMediationHTTPEndpointBinding
+2012-07-03 13:40:14,368 INFO  [Soap12HttpBindingImporter] importing endpoint http://10.0.106.169:4567/ServiceMediation
+2012-07-03 13:40:14,378 INFO  [Soap12HttpBindingImporter] importing operation ServiceMediationRequestNew
+2012-07-03 13:40:14,478 INFO  [WsdlImporter] Finding importer for {http://smubank.smu.edu.sg/ServiceMediation}ServiceMediationJMSEndpoint2Binding
+2012-07-03 13:40:14,478 INFO  [WsdlImporter] Missing importer for {http://smubank.smu.edu.sg/ServiceMediation}ServiceMediationJMSEndpoint2Binding
+2012-07-03 13:40:14,478 INFO  [WsdlImporter] Finding importer for {http://smubank.smu.edu.sg/ServiceMediation}ServiceMediationJMSEndpoint2Binding
+2012-07-03 13:40:14,478 INFO  [WsdlImporter] Missing importer for {http://smubank.smu.edu.sg/ServiceMediation}ServiceMediationJMSEndpoint2Binding
+2012-07-03 13:40:14,498 WARN  [SoapMessageBuilder] missing namespace on soapbind:body for RPC request, using targetNamespace instead (BP violation)

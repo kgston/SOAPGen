@@ -1,0 +1,12 @@
+<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:ser="http://smubank.smu.edu.sg/ServiceMediation">
+   <soap:Header/>
+   <soap:Body>
+      <ser:ServiceMediationRequestNew>
+         <ConsumerID>testclient</ConsumerID>
+         <TransactionID>12321</TransactionID>
+         <ServiceDomain>Customer</ServiceDomain>
+         <OperationName>CustomerProfileInquiry</OperationName>
+         <ServiceMessageContent>&lt;![CDATA[&lt;Service Message>]]&gt;</ServiceMessageContent>
+      </ser:ServiceMediationRequestNew>
+   </soap:Body>
+</soap:Envelope>

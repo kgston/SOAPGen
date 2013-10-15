@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Created by TIBCO WSDL-->
+<wsdl:definitions xmlns:tns="http://smubank.smu.edu.sg/logging" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:jms="http://www.tibco.com/namespaces/ws/2004/soap/binding/JMS" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:jndi="http://www.tibco.com/namespaces/ws/2004/soap/apis/jndi" name="Untitled" targetNamespace="http://smubank.smu.edu.sg/logging">
+    <wsdl:types/>
+    <wsdl:service name="LoggingFrameworkService">
+        <wsdl:port name="LoggingFrameworkJMSEndpoint" binding="tns:LoggingFrameworkJMSEndpointBinding">
+            <soap:address location=""/>
+            <jndi:context>
+                <jndi:property name="java.naming.factory.initial" type="java.lang.String">com.tibco.tibjms.naming.TibjmsInitialContextFactory</jndi:property>
+                <jndi:property name="java.naming.provider.url" type="java.lang.String">tibjmsnaming://10.0.106.169:5678</jndi:property>
+            </jndi:context>
+            <jms:connectionFactory>SMUBankQueueConnectionFactory</jms:connectionFactory>
+            <jms:targetAddress destination="queue">log.dump</jms:targetAddress>
+        </wsdl:port>
+    </wsdl:service>
+    <wsdl:portType name="LoggingFramework">
+        <wsdl:operation name="LoggingLogDataAdd">
+            <wsdl:input message="tns:InputMessage"/>
+            <wsdl:output message="tns:OutputMessage"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="LoggingFrameworkJMSEndpointBinding" type="tns:LoggingFramework">
+        <soap:binding style="rpc" transport="http://www.tibco.com/namespaces/ws/2004/soap/binding/JMS"/>
+        <jms:binding messageFormat="Text"/>
+        <wsdl:operation name="LoggingLogDataAdd">
+            <soap:operation style="rpc" soapAction="/LoggingFrameworkService.serviceagent/LoggingFrameworkJMSEndpoint/LoggingLogDataAdd" soapActionRequired="true"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="ConsumerID TransactionID RequestUUID OperationName ProcessName LoggingPointNo ErrorMsg"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="Ack"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:message name="InputMessage">
+        <wsdl:part name="ConsumerID" type="xs:string"/>
+        <wsdl:part name="TransactionID" type="xs:string"/>
+        <wsdl:part name="RequestUUID" type="xs:string"/>
+        <wsdl:part name="OperationName" type="xs:string"/>
+        <wsdl:part name="ProcessName" type="xs:string"/>
+        <wsdl:part name="LoggingPointNo" type="xs:int"/>
+        <wsdl:part name="ErrorMsg" type="xs:string"/>
+    </wsdl:message>
+    <wsdl:message name="OutputMessage">
+        <wsdl:part name="Ack" type="xs:string"/>
+    </wsdl:message>
+</wsdl:definitions>

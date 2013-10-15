@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Created by TIBCO WSDL-->
+<wsdl:definitions xmlns:tns="http://smubank.smu.edu.sg/ServiceMediation" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:jms="http://www.tibco.com/namespaces/ws/2004/soap/binding/JMS" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:soap1="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:jndi="http://www.tibco.com/namespaces/ws/2004/soap/apis/jndi" name="Untitled" targetNamespace="http://smubank.smu.edu.sg/ServiceMediation">
+    <wsdl:types/>
+    <wsdl:service name="ServiceMediationService">
+        <wsdl:port name="ServiceMediationHTTPEndpoint" binding="tns:ServiceMediationHTTPEndpointBinding">
+            <soap1:address location="http://10.0.106.169:4567/ServiceMediation"/>
+        </wsdl:port>
+        <wsdl:port name="ServiceMediationJMSEndpoint2" binding="tns:ServiceMediationJMSEndpoint2Binding">
+            <soap1:address location=""/>
+            <jndi:context>
+                <jndi:property name="java.naming.factory.initial" type="java.lang.String">com.tibco.tibjms.naming.TibjmsInitialContextFactory</jndi:property>
+                <jndi:property name="java.naming.provider.url" type="java.lang.String">tibjmsnaming://10.0.106.169:8080</jndi:property>
+            </jndi:context>
+            <jms:connectionFactory>SMUBankQueueConnectionFactory</jms:connectionFactory>
+            <jms:targetAddress destination="queue">sm.request</jms:targetAddress>
+        </wsdl:port>
+    </wsdl:service>
+    <wsdl:portType name="ServiceMediation">
+        <wsdl:operation name="ServiceMediationRequestNew">
+            <wsdl:input message="tns:ServiceMediationtInput"/>
+            <wsdl:output message="tns:ServiceMediationtOutput"/>
+            <wsdl:fault name="fault1" message="tns:ServiceMediationError"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="ServiceMediationHTTPEndpointBinding" type="tns:ServiceMediation">
+        <soap1:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="ServiceMediationRequestNew">
+            <soap1:operation style="rpc" soapAction="/ServiceMediationService.serviceagent/ServiceMediationHTTPEndpoint/ServiceMediationRequestNew" soapActionRequired="true"/>
+            <wsdl:input>
+                <soap1:body use="literal" parts="ConsumerID TransactionID ServiceDomain OperationName ServiceMessageContent"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap1:body use="literal" parts="ServiceMessageReply"/>
+            </wsdl:output>
+            <wsdl:fault name="fault1">
+                <soap1:fault use="literal" name="fault1"/>
+            </wsdl:fault>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:binding name="ServiceMediationJMSEndpoint2Binding" type="tns:ServiceMediation">
+        <soap1:binding style="rpc" transport="http://www.tibco.com/namespaces/ws/2004/soap/binding/JMS"/>
+        <jms:binding messageFormat="Text"/>
+        <wsdl:operation name="ServiceMediationRequestNew">
+            <soap1:operation style="rpc" soapAction="/ServiceMediationService.serviceagent/ServiceMediationJMSEndpoint2/ServiceMediationRequestNew" soapActionRequired="true"/>
+            <wsdl:input>
+                <soap1:body use="literal" parts="ConsumerID TransactionID ServiceDomain OperationName ServiceMessageContent"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap1:body use="literal" parts="ServiceMessageReply"/>
+            </wsdl:output>
+            <wsdl:fault name="fault1">
+                <soap1:fault use="literal" name="fault1"/>
+            </wsdl:fault>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:message name="ServiceMediationtInput">
+        <wsdl:part name="ConsumerID" type="xs:string"/>
+        <wsdl:part name="TransactionID" type="xs:string"/>
+        <wsdl:part name="ServiceDomain" type="xs:string"/>
+        <wsdl:part name="OperationName" type="xs:string"/>
+        <wsdl:part name="ServiceMessageContent" type="xs:string"/>
+    </wsdl:message>
+    <wsdl:message name="ServiceMediationtOutput">
+        <wsdl:part name="ServiceMessageReply" type="xs:string"/>
+    </wsdl:message>
+    <wsdl:message name="ServiceMediationError">
+        <wsdl:part name="ErrorMessage" type="xs:string"/>
+    </wsdl:message>
+</wsdl:definitions>
