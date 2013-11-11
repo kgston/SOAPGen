@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Created by TIBCO WSDL-->
+<wsdl:definitions xmlns:ns1="http://smubank.smu.edu.sg/schemas/serviceResponseHeader" xmlns:tns="http://smubank.smu.edu.sg/schemas/CustomerPreference/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:ns0="http://smubank.smu.edu.sg/schemas/serviceRequestMessage/" xmlns:jms="http://www.tibco.com/namespaces/ws/2004/soap/binding/JMS" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:soap1="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:jndi="http://www.tibco.com/namespaces/ws/2004/soap/apis/jndi" name="Untitled" targetNamespace="http://smubank.smu.edu.sg/schemas/CustomerPreference/">
+    <wsdl:types>
+        <xs:schema xmlns:tns="http://smubank.smu.edu.sg/schemas/serviceRequestMessage/" targetNamespace="http://smubank.smu.edu.sg/schemas/serviceRequestMessage/" elementFormDefault="unqualified" attributeFormDefault="unqualified">
+            <xs:complexType name="Content">
+                <xs:sequence>
+                    <xs:element ref="tns:ServiceReqHeader"/>
+                    <xs:any minOccurs="0" maxOccurs="unbounded" processContents="lax" namespace="##any"/>
+                </xs:sequence>
+                <xs:anyAttribute processContents="lax" namespace="##any"/>
+            </xs:complexType>
+            <xs:complexType name="ServiceReqHeader">
+                <xs:sequence>
+                    <xs:element name="ConsumerID" type="xs:string"/>
+                    <xs:element name="TransactionID" type="xs:string"/>
+                    <xs:element name="RequestUUID" type="xs:string"/>
+                    <xs:element name="OperationName" type="xs:string"/>
+                    <xs:element name="Priority" type="xs:int"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="Content" type="tns:Content"/>
+            <xs:element name="ServiceReqHeader" type="tns:ServiceReqHeader"/>
+        </xs:schema>
+        <xs:schema xmlns="http://smubank.smu.edu.sg/schemas/serviceResponseHeader" targetNamespace="http://smubank.smu.edu.sg/schemas/serviceResponseHeader" elementFormDefault="qualified" attributeFormDefault="unqualified">
+            <xs:complexType name="ServiceRespHeader">
+                <xs:sequence>
+                    <xs:element ref="ns1:GlobalErrorID"/>
+                    <xs:element ref="ns1:ErrorText"/>
+                    <xs:element ref="ns1:ErrorDetails"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="ErrorDetails" type="xs:string"/>
+            <xs:element name="ErrorText" type="xs:string"/>
+            <xs:element name="GlobalErrorID" type="xs:string"/>
+            <xs:element name="ServiceRespHeader" type="ns1:ServiceRespHeader"/>
+        </xs:schema>
+        <xs:schema targetNamespace="http://smubank.smu.edu.sg/schemas/CustomerPreference/" elementFormDefault="unqualified" attributeFormDefault="unqualified">
+            <xs:complexType name="MonthlyStatement">
+                <xs:sequence>
+                    <xs:element name="ViaEmail" type="xs:boolean"/>
+                    <xs:element name="ViaSnailMail" type="xs:boolean"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="Preference">
+                <xs:sequence>
+                    <xs:element ref="tns:CustomerID"/>
+                    <xs:element ref="tns:MonthlyStatement"/>
+                    <xs:element ref="tns:RedeemPromotion"/>
+                    <xs:element ref="tns:RMModeOfCommunication"/>
+                    <xs:element ref="tns:TriggerList"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="RMModeOfCommunication">
+                <xs:sequence>
+                    <xs:element name="ViaPhone" type="xs:boolean"/>
+                    <xs:element name="ViaEmail" type="xs:boolean"/>
+                    <xs:element name="ViaSMS" type="xs:boolean"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="RedeemPromotion">
+                <xs:sequence>
+                    <xs:element name="ViaEmail" type="xs:boolean"/>
+                    <xs:element name="ViaSMS" type="xs:boolean"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="TriggerList">
+                <xs:sequence>
+                    <xs:element name="Trigger" minOccurs="0" maxOccurs="unbounded">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element name="AccountID" type="xs:string"/>
+                                <xs:element name="TriggerType">
+                                    <xs:simpleType>
+                                        <xs:restriction base="xs:string">
+                                            <xs:enumeration value="Transaction"/>
+                                            <xs:enumeration value="Balance"/>
+                                            <xs:enumeration value="Daily Limit"/>
+                                        </xs:restriction>
+                                    </xs:simpleType>
+                                </xs:element>
+                                <xs:element name="Amount" type="xs:string"/>
+                                <xs:element name="ViaEmail" type="xs:boolean"/>
+                                <xs:element name="ViaSMS" type="xs:boolean"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="CustomerID" type="xs:string"/>
+            <xs:element name="MonthlyStatement" type="tns:MonthlyStatement"/>
+            <xs:element name="Preference" type="tns:Preference"/>
+            <xs:element name="RMModeOfCommunication" type="tns:RMModeOfCommunication"/>
+            <xs:element name="RedeemPromotion" type="tns:RedeemPromotion"/>
+            <xs:element name="TriggerList" type="tns:TriggerList"/>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:service name="Party_CustomerPreference_Service">
+        <wsdl:port name="Party_CustomerPreference_HTTPEndPoint" binding="tns:Party_CustomerPreference_HTTPEndPointBinding">
+            <soap:address location="http://localhost:9090/Party_CustomerPreference_Service.serviceagent/Party_CustomerPreference_HTTPEndPoint"/>
+        </wsdl:port>
+        <wsdl:port name="Party_CustomerPreference_JMSEndpoint" binding="tns:Party_CustomerPreference_JMSEndpointBinding">
+            <soap:address location=""/>
+            <jndi:context>
+                <jndi:property name="java.naming.factory.initial" type="java.lang.String">com.tibco.tibjms.naming.TibjmsInitialContextFactory</jndi:property>
+                <jndi:property name="java.naming.provider.url" type="java.lang.String">tibjmsnaming://localhost:5678</jndi:property>
+            </jndi:context>
+            <jms:connectionFactory>SMUBankQueueConnectionFactory</jms:connectionFactory>
+            <jms:targetAddress destination="queue">party.endpoint</jms:targetAddress>
+        </wsdl:port>
+    </wsdl:service>
+    <wsdl:portType name="Party_CustomerPreference">
+        <wsdl:operation name="Party_CustomerPreference_Create">
+            <wsdl:input message="tns:Party_CustomerPreference_Create-Input"/>
+            <wsdl:output message="tns:Party_CustomerPreference_Create-Output"/>
+        </wsdl:operation>
+        <wsdl:operation name="Party_CustomerPreference_Update">
+            <wsdl:input message="tns:Party_CustomerPreference_Update-Input"/>
+            <wsdl:output message="tns:Party_CustomerPreference_Update-Output"/>
+        </wsdl:operation>
+        <wsdl:operation name="Party_CustomerPreference_Read">
+            <wsdl:input message="tns:Party_CustomerPreference_Read-Input"/>
+            <wsdl:output message="tns:Party_CustomerPreference_Read-Output"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="Party_CustomerPreference_HTTPEndPointBinding" type="tns:Party_CustomerPreference">
+        <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="Party_CustomerPreference_Create">
+            <soap:operation style="rpc" soapAction="/Party_CustomerPreference_Service.serviceagent/Party_CustomerPreference_HTTPEndPoint/Party_CustomerPreference_Create"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="ServiceReqHeader Preference"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="ServiceRespHeader"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="Party_CustomerPreference_Update">
+            <soap:operation style="rpc" soapAction="/Party_CustomerPreference_Service.serviceagent/Party_CustomerPreference_HTTPEndPoint/Party_CustomerPreference_Update"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="ServiceReqHeader Preference"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="ServiceRespHeader"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="Party_CustomerPreference_Read">
+            <soap:operation style="rpc" soapAction="/Party_CustomerPreference_Service.serviceagent/Party_CustomerPreference_HTTPEndPoint/Party_CustomerPreference_Read"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="ServiceReqHeader CustomerID"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="ServiceRespHeader Preference"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:binding name="Party_CustomerPreference_JMSEndpointBinding" type="tns:Party_CustomerPreference">
+        <soap:binding style="rpc" transport="http://www.tibco.com/namespaces/ws/2004/soap/binding/JMS"/>
+        <jms:binding messageFormat="Text"/>
+        <wsdl:operation name="Party_CustomerPreference_Create">
+            <soap:operation style="rpc" soapAction="/Party_CustomerPreference_Service.serviceagent/Party_CustomerPreference_JMSEndpoint/Party_CustomerPreference_Create"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="ServiceReqHeader Preference"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="ServiceRespHeader"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="Party_CustomerPreference_Update">
+            <soap:operation style="rpc" soapAction="/Party_CustomerPreference_Service.serviceagent/Party_CustomerPreference_JMSEndpoint/Party_CustomerPreference_Update"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="ServiceReqHeader Preference"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="ServiceRespHeader"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="Party_CustomerPreference_Read">
+            <soap:operation style="rpc" soapAction="/Party_CustomerPreference_Service.serviceagent/Party_CustomerPreference_JMSEndpoint/Party_CustomerPreference_Read"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="ServiceReqHeader CustomerID"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="ServiceRespHeader Preference"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:message name="Party_CustomerPreference_Create-Input">
+        <wsdl:part name="ServiceReqHeader" type="ns0:ServiceReqHeader"/>
+        <wsdl:part name="Preference" type="tns:Preference"/>
+    </wsdl:message>
+    <wsdl:message name="Party_CustomerPreference_Create-Output">
+        <wsdl:part name="ServiceRespHeader" type="ns1:ServiceRespHeader"/>
+    </wsdl:message>
+    <wsdl:message name="Party_CustomerPreference_Update-Input">
+        <wsdl:part name="ServiceReqHeader" type="ns0:ServiceReqHeader"/>
+        <wsdl:part name="Preference" type="tns:Preference"/>
+    </wsdl:message>
+    <wsdl:message name="Party_CustomerPreference_Update-Output">
+        <wsdl:part name="ServiceRespHeader" type="ns1:ServiceRespHeader"/>
+    </wsdl:message>
+    <wsdl:message name="Party_CustomerPreference_Read-Input">
+        <wsdl:part name="ServiceReqHeader" type="ns0:ServiceReqHeader"/>
+        <wsdl:part name="CustomerID" type="xs:string"/>
+    </wsdl:message>
+    <wsdl:message name="Party_CustomerPreference_Read-Output">
+        <wsdl:part name="ServiceRespHeader" type="ns1:ServiceRespHeader"/>
+        <wsdl:part name="Preference" type="tns:Preference"/>
+    </wsdl:message>
+</wsdl:definitions>
